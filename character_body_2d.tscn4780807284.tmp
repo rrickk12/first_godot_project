@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cegl7gtka1v0e"]
+
+[ext_resource type="Script" uid="uid://d0lrscgkn8tp4" path="res://scripts/player_movement.gd" id="1_ghijl"]
+[ext_resource type="Texture2D" uid="uid://nq8dpvnk65w1" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Players/Tiles/tile_0000.png" id="1_ij6vw"]
+[ext_resource type="Texture2D" uid="uid://gk5jmjlx4pwm" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Players/Tiles/tile_0001.png" id="2_ghijl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44cfe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ij6vw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ghijl")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dd465"]
+radius = 7.071068
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ghijl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_44cfe")
+animation = &"walking"
+autoplay = "walking"
+frame_progress = 0.8649542
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_dd465")
