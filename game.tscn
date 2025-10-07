@@ -1,8 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw4hjnesuscy2"]
+[gd_scene load_steps=9 format=3 uid="uid://dw4hjnesuscy2"]
 
 [ext_resource type="PackedScene" uid="uid://cegl7gtka1v0e" path="res://character_body_2d.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://duwd5v7q6yc50" path="res://enemy.gd" id="2_7jktm"]
+[ext_resource type="Texture2D" uid="uid://dhifds0uknddk" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Enemies/Tiles/tile_0003.png" id="3_ryrav"]
+[ext_resource type="Texture2D" uid="uid://csqll5jtbovyk" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Enemies/Tiles/tile_0000.png" id="4_eow3j"]
+[ext_resource type="Texture2D" uid="uid://dqj70bkh4lb5f" path="res://assets/kenney_desert-shooter-pack_1.0/PNG/Enemies/Tiles/tile_0001.png" id="5_j5wjh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_80nbo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vef74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ryrav")
+}],
+"loop": true,
+"name": &"F",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_eow3j")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_eow3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_j5wjh")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
+size = Vector2(13, 6)
 
 [node name="Game" type="Node2D"]
 
@@ -13,10 +50,22 @@ visible = false
 position = Vector2(-6, -39)
 zoom = Vector2(4, 4)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="Floor" type="CollisionShape2D" parent="Floor"]
 visible = false
 position = Vector2(-10, 24)
 shape = SubResource("WorldBoundaryShape2D_80nbo")
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+script = ExtResource("2_7jktm")
+
+[node name="Fabre" type="AnimatedSprite2D" parent="Enemy"]
+position = Vector2(38, -12)
+sprite_frames = SubResource("SpriteFrames_vef74")
+animation = &"move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(38, -3)
+shape = SubResource("RectangleShape2D_7jktm")

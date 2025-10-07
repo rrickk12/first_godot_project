@@ -33,4 +33,11 @@ func _physics_process(delta: float) -> void:
 
 		if sprite.animation != "idle" and is_on_floor():
 			sprite.play("idle")
+	#ColisionWithEnemy
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		print("Collided with: ", collision.get_collider().name)
+	if collision and collision.get_collider().name == "Enemy":
+		collision.get_collider().take_damage(1)
 	move_and_slide()
+	
